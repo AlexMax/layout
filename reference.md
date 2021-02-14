@@ -1,6 +1,9 @@
 Layout Reference
 ================
 
+Functions
+---------
+
 ```c++
 void lay_init_context(lay_context *ctx);
 ```
@@ -132,3 +135,52 @@ void lay_set_margins_ltrb(lay_context *ctx, lay_id item, lay_scalar l, lay_scala
 ```
 
 Same as lay_set_margins, but the components are passed as separate arguments.
+
+Contain Flags
+-------------
+
+Bitfield flags you can pass to `lay_set_container`.
+
+Flex direction:
+
+- **LAY_ROW**: Left to right
+- **LAY_COLUMN**: Top to bottom
+
+Model:
+
+- **LAY_LAYOUT**: Free layout
+- **LAY_FLEX**: Flex model
+
+Flex wrap:
+
+- **LAY_NOWRAP**: Single-line
+- **LAY_WRAP**: Multi-line, wrap left to right
+
+Justify content:
+
+- **LAY_START**: At start of row/column
+- **LAY_MIDDLE**: At center of row/column
+- **LAY_END**: At end of row/column
+- **LAY_JUSTIFY**: Insert spacing to stretch across whole row/column
+
+Child Layout (Behavior) Flags
+-----------------------------
+
+Bitfield flags you can pass to `lay_set_behave`.
+
+Attachments - fully valid when parent uses `LAY_LAYOUT` model, partially valid when in `LAY_FLEX` model.
+
+- **LAY_LEFT**: Anchor to left item or left side of parent.
+- **LAY_TOP**: Anchor to top item or top side of parent.
+- **LAY_RIGHT**: Anchor to right item or right side of parent.
+- **LAY_BOTTOM**: Anchor to bottom item or bottom side of parent.
+- **LAY_HFILL**: Anchor to both left and right item or parent borders.
+- **LAY_VFILL**: Anchor to both top and bottom item or parent borders.
+- **LAY_HCENTER**: Center horizontally, with left margin as offset.
+- **LAY_VCENTER**: Center vertically, with top margin as offset.
+- **LAY_CENTER**: Center in both directions, with left/top margin as offset.
+- **LAY_FILL**: Anchor to all four directions.
+- **LAY_BREAK**
+  When in a wrapping container, put this element on a new line. Wrapping layout code auto-inserts `LAY_BREAK` flags as needed. See GitHub issues for TODO related to this.
+  
+  Drawing routines can read this via item pointers as needed after performing layout calculations.
